@@ -3,6 +3,7 @@ import { DataContext } from "../../context/DataProvider";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Link } from "react-router-dom";
+import ProductCatalogSkeleton from "./ProductCatalogSkeleton";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -43,7 +44,7 @@ const Newcollections = () => {
   }
 
   if (!data) {
-    return <div>Loading...</div>;
+    return <ProductCatalogSkeleton />;
   }
 
   return (

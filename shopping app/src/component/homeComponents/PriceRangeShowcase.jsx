@@ -3,12 +3,14 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import ProductCatalogSkeleton from "./ProductCatalogSkeleton";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const PriceRangeShowcase = ({ category, ranges = [] }) => {
   const ref = useRef(null);
   const [productsByRange, setProductsByRange] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     gsap.to(ref.current, {
@@ -52,11 +54,17 @@ const PriceRangeShowcase = ({ category, ranges = [] }) => {
         setProductsByRange(result);
       } catch (err) {
         console.error("Failed to fetch products:", err);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchProducts();
   }, [category, ranges]);
+
+  if (loading) {
+    return <ProductCatalogSkeleton />;
+  }
 
   return (
     <div className="py-8 px-4 bg-gray-100">
