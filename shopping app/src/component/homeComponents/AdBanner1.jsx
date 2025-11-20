@@ -50,20 +50,37 @@ useGSAP(() => {
 }, [Xvalue]);
 
   return (
-    <>
-    <div  className='h-[60vh] w-full relative  overflow-hidden bg-white'>
-    <button className='bg-gray-900 rounded-md text-white text-3xl h-16 w-8 z-10 absolute right-0 top-[45%] opacity-50 hover:opacity-100' onClick={nextpage}><i className="ri-arrow-right-s-fill"></i></button>
-    <button className='bg-gray-900 rounded-md text-white text-3xl h-16 w-8 z-10 absolute left-0 top-[45%] opacity-50 hover:opacity-100' onClick={prepage}><i className="ri-arrow-left-s-fill"></i></button>
-    {/* <div  ref={gsapopacity} className='h-[91vh] w-full relative  overflow-x-hidden opacity-1'> */}
-    <div ref={gsapAdbanner1} className="flex w-[600%] h-[60vh] absolute -left-[100%] bg-white">
-          {images.map((image, index) => (
-            <div key={index} className="w-full h-full bg-black relative">
-              <img src={image.src} className="w-full h-full object-fill" />
-            </div>
-          ))}
+   <>
+  <div className='w-full relative overflow-hidden bg-white 
+                  h-[30vh] sm:h-[40vh] md:h-[50vh] lg:h-[60vh]'>
+
+    <button className='bg-gray-900 rounded-md text-white text-3xl h-16 w-8 z-10 
+                      absolute right-0 top-1/2 -translate-y-1/2 opacity-50 hover:opacity-100'
+            onClick={nextpage}>
+      <i className="ri-arrow-right-s-fill"></i>
+    </button>
+
+    <button className='bg-gray-900 rounded-md text-white text-3xl h-16 w-8 z-10 
+                      absolute left-0 top-1/2 -translate-y-1/2 opacity-50 hover:opacity-100'
+            onClick={prepage}>
+      <i className="ri-arrow-left-s-fill"></i>
+    </button>
+
+    <div
+      ref={gsapAdbanner1}
+      className="flex w-[600%] absolute -left-[100%]
+                 h-[30vh] sm:h-[40vh] md:h-[50vh] lg:h-[60vh]"
+    >
+      {images.map((image, index) => (
+        <div key={index} className="w-full h-full">
+          <img
+            src={image.src}
+            className="w-full h-full object-cover"
+          />
         </div>
+      ))}
     </div>
-    {/* </div> */}
-    </>
+  </div>
+</>
   )}
 export default AdBanner1

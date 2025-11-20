@@ -34,12 +34,12 @@ const RelatedProduct = ({ category, subCategory }) => {
         <Swiper
           modules={[Navigation, Pagination]}
           spaceBetween={20}
-          slidesPerView={1}
+          slidesPerView={2}
           navigation
           pagination={{ clickable: true }}
           breakpoints={{
-            640: { slidesPerView: 1 },
-            768: { slidesPerView: 2 },
+            640: { slidesPerView: 2 },
+            768: { slidesPerView: 3 },
             1024: { slidesPerView: 3 },
             1280: { slidesPerView: 4 },
           }}
@@ -53,7 +53,7 @@ const RelatedProduct = ({ category, subCategory }) => {
                 <img
                   src={product.images?.[0]}
                   alt={product.name}
-                  className="w-full h-56 object-cover"
+                  className="w-full h-40 sm:h-48 md:h-56 object-cover"
                 />
                 <div className="p-3">
                   <h3 className="text-sm font-semibold text-gray-700 truncate">{product.name}</h3>

@@ -43,49 +43,82 @@ const FashionCategory = () => {
   // }
 
   return (
-    <>
-     <div className="relative h-auto w-full bg-gradient-to-r from-[#f0f4f8] via-[#e5ecf1] to-[#f7f9fb] overflow-x-hidden">
-  {/* Minimal blurred background shapes */}
-  <div className="absolute top-0 left-0 w-full h-full z-0">
-    <div className="absolute w-72 h-72 bg-[#a5d8ff] rounded-full filter blur-2xl opacity-20 top-16 left-12"></div>
-    <div className="absolute w-72 h-72 bg-[#c3fbd8] rounded-full filter blur-2xl opacity-20 bottom-16 right-12"></div>
-  </div>
+  <>
+  <div className="relative w-full bg-gradient-to-r from-[#f0f4f8] via-[#e5ecf1] to-[#f7f9fb] overflow-hidden py-10">
 
-      {/* Heading */}
-      <div className="w-full h-[16vh] relative z-10">
-        <h1 ref={ref}
-          className="h-[10vh] w-fit text-2xl md:text-5xl font-bold pt-4 z-10 text-center underline underline-offset-[15px] decoration-4 absolute right-28"
+    {/* Minimal blurred background shapes */}
+    <div className="absolute top-0 left-0 w-full h-full z-0 pointer-events-none">
+      <div className="absolute w-52 h-52 bg-[#a5d8ff] rounded-full filter blur-2xl opacity-20 top-10 left-10"></div>
+      <div className="absolute w-52 h-52 bg-[#c3fbd8] rounded-full filter blur-2xl opacity-20 bottom-10 right-10"></div>
+    </div>
+
+    {/* Heading */}
+    <div className="relative z-10 w-full text-center mb-10">
+      <h1
+        ref={ref}
+        className="text-3xl md:text-5xl font-bold underline underline-offset-[10px] decoration-4"
+      >
+        Browse In Fashion
+      </h1>
+    </div>
+
+    {/* Category Cards */}
+    <div
+      className="
+        relative z-10 
+        grid 
+        grid-cols-2 
+        sm:grid-cols-2 
+        md:grid-cols-3 
+        lg:grid-cols-4 
+        xl:grid-cols-4 
+        gap-8 
+        px-6
+      "
+    >
+      {Images.map((Image, index) => (
+        <div
+          key={index}
+          onClick={() => handleClick(Image.name)}
+          className="
+            h-[260px] 
+            sm:h-[280px] 
+            md:h-[300px] 
+            w-full 
+            cursor-pointer 
+            relative 
+            overflow-hidden 
+            rounded-2xl 
+            shadow-xl 
+            bg-white 
+            bg-opacity-30 
+            backdrop-blur-lg 
+            transition-transform 
+            duration-300 
+            hover:scale-105
+          "
         >
-          Browse In Fashion
-        </h1>
-      </div>
+          <img
+            className="h-full w-full object-cover object-top"
+            src={Image.image}
+            alt={Image.name}
+          />
 
-      {/* Category Cards */}
-      <div className="relative z-10 flex flex-wrap justify-center items-center gap-12 px-4 pb-10">
-        {Images.map((Image, index) => (
-          <div
-            key={index}
-            onClick={() => handleClick(Image.name)}
-            className="h-[300px] w-[330px] cursor-pointer relative overflow-hidden rounded-2xl shadow-2xl bg-white bg-opacity-30 backdrop-blur-lg transition-transform duration-300 hover:scale-105"
-          >
-            <img
-              className="h-full w-full object-cover object-top"
-              src={Image.image}
-              alt={Image.name}
-            />
-            <div className="absolute inset-0 bg-black/0 hover:bg-black/60 transition duration-300">
-              <div className="h-[300px] w-[330px] flex justify-center items-center opacity-0 hover:opacity-100 transition-opacity duration-300">
-                <p className=" text-white text-2xl font-semibold text-center">
-                  {Image.name}
-                  <hr className="h-1 w-16 bg-white border-0 mt-2 mx-auto" />
-                </p>
-              </div>
+          {/* Hover Overlay */}
+          <div className="absolute inset-0 bg-black/0 hover:bg-black/60 transition duration-300">
+            <div className="h-full w-full flex justify-center items-center opacity-0 hover:opacity-100 transition-opacity duration-300">
+              <p className="text-white text-2xl font-semibold text-center">
+                {Image.name}
+                <hr className="h-1 w-16 bg-white border-0 mt-2 mx-auto" />
+              </p>
             </div>
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
     </div>
-    </>
+  </div>
+</>
+
   );
 };
 

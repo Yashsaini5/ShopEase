@@ -44,48 +44,84 @@ function HeroBanner() {
 
 
   return (
-    <>
-      <div className="h-16"></div>
-      <div className="h-[65vh] w-full relative  overflow-hidden bg-black">
-        <Swiper
-          modules={[Navigation, Pagination, Autoplay]}
-          slidesPerView={1}
-          navigation
-          pagination={{ clickable: true }}
-          loop={true}
-          autoplay={{
-            delay: 7000,
-            disableOnInteraction: false, 
-          }}
-        >
-            {videos.map((video, index) => (
-              <SwiperSlide key={index}>
-                <div key={index} className="w-full h-[65vh] bg-black relative">
-                  <video
-                    src={video.src}
-                    autoPlay
-                    loop
-                    muted
-                    className="w-full h-full object-fill opacity-60"
-                  />
-                  <p className="absolute text-white font-normal text-5xl top-6 left-10">
-                    {video.title}
-                  </p>
-                  <p className="absolute text-white font-normal text-4xl top-20 left-10">
-                    {video.description}
-                  </p>
-                  <p className="absolute text-white font-normal text-2xl right-10 bottom-16">
-                    {video.feature}
-                  </p>
-                  <p className="absolute text-white font-normal text-xl right-10 bottom-10">
-                    {video.offer}
-                  </p>
-                </div>
-              </SwiperSlide>
-            ))}
-        </Swiper>
-      </div>
-    </>
+  <>
+  {/* Spacer for fixed header */}
+  <div className="h-16"></div>
+
+  <div className="w-full relative overflow-hidden bg-black h-[35vh] sm:h-[45vh] md:h-[60vh] lg:h-[65vh]">
+
+    <Swiper
+      modules={[Navigation, Pagination, Autoplay]}
+      slidesPerView={1}
+      navigation
+      pagination={{ clickable: true }}
+      loop={true}
+      autoplay={{
+        delay: 7000,
+        disableOnInteraction: false,
+      }}
+      className="h-full"
+    >
+
+      {videos.map((video, index) => (
+        <SwiperSlide key={index}>
+
+          <div className="w-full h-full relative">
+
+            <video
+              src={video.src}
+              autoPlay
+              loop
+              muted
+              className="w-full h-full object-cover opacity-60"
+            />
+
+            {/* Title */}
+            <p className="
+              absolute text-white font-semibold
+              text-xl sm:text-2xl md:text-4xl lg:text-5xl
+              top-4 sm:top-6 left-4 sm:left-10
+            ">
+              {video.title}
+            </p>
+
+            {/* Description */}
+            <p className="
+              absolute text-white font-normal
+              text-lg sm:text-xl md:text-3xl lg:text-4xl
+              top-14 sm:top-20 left-4 sm:left-10
+              max-w-[80%] sm:max-w-[60%]
+            ">
+              {video.description}
+            </p>
+
+            {/* Feature */}
+            <p className="
+              absolute text-white font-normal
+              text-sm sm:text-lg md:text-xl lg:text-2xl
+              right-4 sm:right-10 bottom-16
+            ">
+              {video.feature}
+            </p>
+
+            {/* Offer */}
+            <p className="
+              absolute text-white font-normal
+              text-xs sm:text-base md:text-lg lg:text-xl
+              right-4 sm:right-10 bottom-8
+            ">
+              {video.offer}
+            </p>
+
+          </div>
+
+        </SwiperSlide>
+      ))}
+
+    </Swiper>
+  </div>
+</>
+
   );
 }
 export default HeroBanner;

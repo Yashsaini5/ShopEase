@@ -81,11 +81,11 @@ const PriceRangeShowcase = ({ category, ranges = [] }) => {
           <h3 className="text-2xl font-semibold mb-4 text-gray-700">
             Under ₹{price}
           </h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 ">
             {productsByRange[price]?.length > 0 ? (
               productsByRange[price].map((product) => (
                 <Link to={`/product/${product._id}`} key={product._id}>
-                  <div className="h-[50vh] w-[17vw] bg-white rounded-xl shadow-md overflow-hidden relative hover:scale-105 transition-transform duration-300">
+                  <div className="h-[50vh] w-full bg-white rounded-xl shadow-md overflow-hidden relative hover:scale-105 transition-transform duration-300">
                     {/* Increased image height */}
                     <div className="h-[70%] w-full relative">
                       <img

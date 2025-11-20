@@ -8,6 +8,7 @@ const Cart = () => {
     useContext(DataContext);
   const navigate = useNavigate();
   const location = useLocation();
+  const [userLoading, setUserLoading] = useState(false);
   const cartItemCount = cart.reduce((total, item) => total + item.quantity, 0);
   const subtotal = cart.reduce(
     (acc, item) => acc + item.variant?.oldPrice * item.quantity,
@@ -24,12 +25,18 @@ const Cart = () => {
   );
 
   useEffect(() => {
-    if (!user) {
-      localStorage.setItem("redirectAfterLogin", location.pathname);
-      navigate("/login", { replace: true });
-    } else {
-      fetchCart(user);
-    }
+    if(user === null) return;
+      if(user === undefined) return;
+
+      setUserLoading(true)
+
+      if(!user){
+        localStorage.setItem("redirectAfterLogin", location.pathname);
+        navigate("/login", { replace: true });
+        return;
+      }
+       fetchCart(user)
+    
   }, [user, navigate, location]);
 
   return (
@@ -39,7 +46,7 @@ const Cart = () => {
           <div className="h-16"></div>
           <div className=" lg:flex-row flex-grow flex flex-col items-center justify-center w-full px-4 py-10">
             {/* Cart Items */}
-            <div className="cartItem px-6 py-10 w-full max-w-4xl mx-auto">
+            <div className="cartItem px-2 w-full max-w-4xl mx-auto">
               <p className="text-3xl font-bold mb-8 text-center border-b-4 border-gray-400 pb-2">
                 Your Cart
               </p>

@@ -50,12 +50,12 @@ const HomeCategories = () => {
       </div>
 
       {/* Category Cards */}
-      <div className="relative z-10 flex flex-wrap justify-center items-center gap-12 px-4 pb-16">
+      <div className="relative z-10 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-4 pb-16">
         {Categories.map((Category, index) => (
           <div
             key={index}
             onClick={() => handleCategoryClick(Category.name)}
-            className="h-[250px] w-[300px] cursor-pointer relative overflow-hidden rounded-2xl shadow-2xl bg-white bg-opacity-30 transition-transform duration-300 hover:scale-105"
+            className="h-[250px] w-full sm:w-[250px] md:w-[280px] lg:w-[300px] cursor-pointer relative overflow-hidden rounded-2xl shadow-2xl bg-white bg-opacity-30 transition-transform duration-300 hover:scale-105 mx-auto"
           >
             <img
               className="h-full w-full object-cover object-bottom"
@@ -63,7 +63,7 @@ const HomeCategories = () => {
               alt={Category.name}
             />
             <div className="absolute inset-0 bg-black/0 hover:bg-black/60 transition duration-300">
-              <div className="h-[250px] w-[300px] flex justify-center items-center opacity-0 hover:opacity-100 transition-opacity duration-300">
+              <div className="h-full w-full flex justify-center items-center opacity-0 hover:opacity-100 transition-opacity duration-300">
                 <p className=" text-white text-2xl font-semibold text-center">
                   {Category.name}
                   <hr className="h-1 w-16 bg-white border-0 mt-2 mx-auto" />

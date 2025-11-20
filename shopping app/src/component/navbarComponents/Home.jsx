@@ -14,7 +14,10 @@ const Home = () => {
       <HeroBanner/>
       <HomeCategories/>
       <AdBanner1/>
-      <Newcollections/>
+      {/* Swiper needs FULL WIDTH */}
+      <div className="w-full">
+        <Newcollections />
+      </div>
       <AdBanner2/>
       <FashionCategory/>
       <PhoneCategory/>

@@ -29,6 +29,8 @@ const LoginPage = () => {
 
   const [welX, setwelX] = useState("0%");
   const [welZ, setwelZ] = useState(0);
+  const [showLogin, setShowLogin] = useState(true);
+
 
   useGSAP(() => {
     gsap.to(gsapLogin.current, {
@@ -87,26 +89,26 @@ const LoginPage = () => {
     setwelX("0%");
   }
 
-  function GlowingButton() {
-    return (
-      <button
-        className=" border-blue-500 border-4 w-[35%] text-blue-500 font-bold py-2 px-4 rounded-xl transition duration-1000 ease-in-out transform hover:scale-105 hover:shadow-[0_0_15px_5px_rgba(59,130,246,1)] hover:bg-blue-700 hover:text-white hover:border-blue-700"
-        onClick={handleAnimation}
-      >
-        SIGN UP
-      </button>
-    );
-  }
-  function GlowingButton2() {
-    return (
-      <button
-        className=" border-blue-500 border-4 w-[35%] text-blue-500 font-bold py-2 px-4 rounded-xl transition duration-1000 ease-in-out transform hover:scale-105 hover:shadow-[0_0_15px_5px_rgba(59,130,246,1)] hover:bg-blue-700 hover:text-white hover:border-blue-700"
-        onClick={handleAnimation2}
-      >
-        SIGN IN
-      </button>
-    );
-  }
+  // function GlowingButton() {
+  //   return (
+  //     <button
+  //       className=" border-blue-500 border-4 w-[35%] text-blue-500 font-bold py-2 px-4 rounded-xl transition duration-1000 ease-in-out transform hover:scale-105 hover:shadow-[0_0_15px_5px_rgba(59,130,246,1)] hover:bg-blue-700 hover:text-white hover:border-blue-700"
+  //       onClick={handleAnimation}
+  //     >
+  //       SIGN UP
+  //     </button>
+  //   );
+  // }
+  // function GlowingButton2() {
+  //   return (
+  //     <button
+  //       className=" border-blue-500 border-4 w-[35%] text-blue-500 font-bold py-2 px-4 rounded-xl transition duration-1000 ease-in-out transform hover:scale-105 hover:shadow-[0_0_15px_5px_rgba(59,130,246,1)] hover:bg-blue-700 hover:text-white hover:border-blue-700"
+  //       onClick={handleAnimation2}
+  //     >
+  //       SIGN IN
+  //     </button>
+  //   );
+  // }
  
     const apiUrl = import.meta.env.VITE_BACKEND_URL;
   const handleGoogleLogin = async () => {
@@ -262,207 +264,159 @@ const LoginPage = () => {
   };
 
   return (
-    <>
-      <div className="h-[100vh] w-full flex justify-center items-center bg-slate-900">
-        <div
-          className="box
-    h-[70vh] w-[70vw] flex bg-transparent relative mt-16"
+<>
+  <div className="min-h-screen w-full flex justify-center items-center bg-slate-900 py-10">
+
+    <div className="w-[95vw] md:w-[80vw] lg:w-[50vw] bg-white rounded-2xl shadow-xl overflow-hidden">
+
+      {/* Header Tabs */}
+      <div className="flex w-full bg-gray-200">
+        <button
+          onClick={() => setShowLogin(true)}
+          className={`w-1/2 py-3 text-lg font-semibold transition ${
+            showLogin ? "bg-white" : "bg-gray-200"
+          }`}
         >
-          <div
-            ref={gsapLogin}
-            className="login 
-        h-full bg-white w-1/2 flex flex-col justify-center z-10"
-          >
-            <div className="text-center text-4xl font-semibold">Sign In</div>
-            <div className="flex justify-center mt-8">
-              <span className="h-10 w-[80%] bg-slate-200 gap-2 rounded-md flex items-center justify-center text-base hover:text-lg hover:border-sky-500 hover:ring-2" onClick={handleGoogleLogin}>
-                <i className="ri-google-fill"></i>
-                <span className="text-slate-800 cursor-pointer">Login with Google</span>
-              </span>
-            </div>
-            <p className="text-center mt-5">Login With Username/Email </p>
-            <div className="flex justify-center mt-2">
-              <input
-                type="text"
-                placeholder="Enter Username/Email"
-                name="loginId"
-                required
-                className="w-[80%] h-10 bg-gray-300 pl-5 text-gray-900 border-none rounded-md placeholder:text-gray-600"
-                value={handlefunction(loginFormData.loginId)}
-                onChange={(e) => {
-                  setUserVal(e.target.value);
-                  handleLoginChange(e);
-                }}
-              />
-            </div>
-            <div className="flex justify-center">
-              <input
-                type="password"
-                name="password"
-                value={loginFormData.password}
-                required
-                placeholder="Enter Password"
-                onChange={handleLoginChange}
-                className="w-[80%] h-10 bg-gray-300 pl-5 text-gray-900 mt-4 border-none rounded-md placeholder:text-gray-600 "
-              />
-            </div>
-            {/* Display error message */}
+          Sign In
+        </button>
+
+        <button
+          onClick={() => setShowLogin(false)}
+          className={`w-1/2 py-3 text-lg font-semibold transition ${
+            !showLogin ? "bg-white" : "bg-gray-200"
+          }`}
+        >
+          Sign Up
+        </button>
+      </div>
+
+      {/* FULL WIDTH FORM PANEL */}
+      <div className="p-8">
+
+        {/* ================= SIGN IN ================ */}
+        {showLogin && (
+          <div className="w-full">
+            <h1 className="text-3xl font-bold text-center mb-6">Sign In</h1>
+
+            <button
+              onClick={handleGoogleLogin}
+              className="w-full flex items-center justify-center gap-3 bg-gray-200 p-3 rounded-lg hover:ring"
+            >
+              <i className="ri-google-fill text-xl" />
+              Login with Google
+            </button>
+
+            <p className="text-center mt-5">Login with Username / Email</p>
+
+            <input
+              type="text"
+              placeholder="Enter Username/Email"
+              name="loginId"
+              className="w-full bg-gray-200 p-3 rounded-lg mt-4"
+              value={loginFormData.loginId}
+              onChange={handleLoginChange}
+            />
+
+            <input
+              type="password"
+              placeholder="Enter Password"
+              name="password"
+              className="w-full bg-gray-200 p-3 rounded-lg mt-4"
+              value={loginFormData.password}
+              onChange={handleLoginChange}
+            />
+
             {errorMessage1.errLoginFields && (
-              <p className="text-red-500 text-center mt-3 font-semibold">
+              <p className="text-red-500 text-center mt-3">
                 {errorMessage1.errLoginFields}
               </p>
             )}
-            {/* Display error message */}
+
             {errorMessage1.errLogin && (
-              <p className="text-red-500 text-center font-semibold">
+              <p className="text-red-500 text-center mt-1">
                 {errorMessage1.errLogin}
               </p>
             )}
-            <p className="text-center mt-3">
-              <a href="/">forget Password?</a>
-            </p>
-            <div className="flex justify-center mt-6 mb-2">
-              <button
-                onClick={handleSubmitLogin}
-                className="h-10 w-[35%] rounded-xl font-bold
-             bg-blue-500 text-white transition duration-1000 ease-in-out transform hover:scale-105 hover:shadow-[0_0_15px_5px_rgba(59,130,246,1)]"
-              >
-                SIGN IN
-              </button>
-            </div>
+
+            <button
+              onClick={handleSubmitLogin}
+              className="w-full mt-6 bg-blue-500 text-white p-3 rounded-lg hover:scale-105 transition"
+            >
+              SIGN IN
+            </button>
           </div>
+        )}
 
-          <div
-            ref={gsapcreate}
-            className="signup
-        h-full bg-white w-1/2 flex flex-col justify-center absolute left-0"
-          >
-            <div className="text-center text-4xl font-semibold">
-              Create Account
-            </div>
-            <div className="flex justify-center mt-8">
-              <span className="h-10 w-[80%] bg-slate-200 gap-2 rounded-md flex items-center justify-center text-base hover:text-lg hover:border-sky-500 hover:ring-2" onClick={handleGoogleLogin}>
-                <i className="ri-google-fill"></i>
-                <span className="text-slate-800 cursor-pointer">Login with Google</span>
-              </span>
-            </div>
-            <p className="text-center mt-5">Register with E-mail</p>
-            <div className="flex justify-center mt-2">
-              <input
-                onChange={handleCreateChange}
-                name="username"
-                type="text"
-                value={createFormData.username}
-                required
-                placeholder="Enter Your Username"
-                className="w-[80%] h-10 bg-gray-300 pl-5 text-gray-900 border-none rounded-md placeholder:text-gray-600"
-              />
-            </div>
-            {/* Display error message */}
+        {/* ================= SIGN UP ================ */}
+        {!showLogin && (
+          <div className="w-full">
+            <h1 className="text-3xl font-bold text-center mb-6">Create Account</h1>
+
+            <button
+              onClick={handleGoogleLogin}
+              className="w-full flex items-center justify-center gap-3 bg-gray-200 p-3 rounded-lg hover:ring"
+            >
+              <i className="ri-google-fill text-xl" />
+              Continue with Google
+            </button>
+
+            <p className="text-center mt-5">Register With Email</p>
+
+            <input
+              type="text"
+              placeholder="Enter Username"
+              name="username"
+              className="w-full bg-gray-200 p-3 rounded-lg mt-4"
+              value={createFormData.username}
+              onChange={handleCreateChange}
+            />
+
             {errorMessage.errUsername && (
-              <p className="text-red-500 text-right pr-14 font-semibold text-sm">
-                {errorMessage.errUsername}
-              </p>
+              <p className="text-red-500 text-right">{errorMessage.errUsername}</p>
             )}
-            <div className="flex justify-center">
-              <input
-                onChange={handleCreateChange}
-                name="email"
-                value={createFormData.email}
-                required
-                type="email"
-                placeholder="Enter Email"
-                className="w-[80%] h-10 bg-gray-300 pl-5 text-gray-900 mt-4 border-none rounded-md placeholder:text-gray-600"
-              />
-            </div>
-            {/* Display error message */}
-            {errorMessage.errEmail && (
-              <p className="text-red-500 text-right pr-14 font-semibold text-sm">
-                {errorMessage.errEmail}
-              </p>
-            )}
-            <div className="flex justify-center">
-              <input
-                onChange={handleCreateChange}
-                name="password"
-                value={createFormData.password}
-                required
-                type="password"
-                placeholder="Enter Password"
-                className="w-[80%] h-10 bg-gray-300 pl-5 text-gray-900 mt-4 border-none rounded-md placeholder:text-gray-600"
-              />
-            </div>
 
-            {/* Display error message */}
+            <input
+              type="email"
+              placeholder="Enter Email"
+              name="email"
+              className="w-full bg-gray-200 p-3 rounded-lg mt-4"
+              value={createFormData.email}
+              onChange={handleCreateChange}
+            />
+
+            {errorMessage.errEmail && (
+              <p className="text-red-500 text-right">{errorMessage.errEmail}</p>
+            )}
+
+            <input
+              type="password"
+              placeholder="Enter Password"
+              name="password"
+              className="w-full bg-gray-200 p-3 rounded-lg mt-4"
+              value={createFormData.password}
+              onChange={handleCreateChange}
+            />
+
             {errorMessage.errFields && (
-              <p className="text-red-500 text-center font-semibold mt-2">
+              <p className="text-red-500 text-center mt-2">
                 {errorMessage.errFields}
               </p>
             )}
 
-            <div className="flex justify-center mt-4 mb-2">
-              <button
-                className="h-10 w-[35%] rounded-xl font-bold mt-2
-             bg-blue-500 text-white transition duration-1000 ease-in-out transform hover:scale-105 hover:shadow-[0_0_15px_5px_rgba(59,130,246,1)]"
-                onClick={handleSubmitCreate}
-              >
-                SIGN UP
-              </button>
-            </div>
+            <button
+              onClick={handleSubmitCreate}
+              className="w-full mt-6 bg-blue-500 text-white p-3 rounded-lg hover:scale-105 transition"
+            >
+              SIGN UP
+            </button>
           </div>
+        )}
 
-          <div
-            ref={gsapHii}
-            className="h-full bg-gray-500 w-1/2 absolute right-0 z-10"
-          >
-            <div className="h-full flex flex-col gap-4 justify-center items-center">
-              <p className="text-4xl font-medium text-center">
-                {" "}
-                Hii {UserVal}...
-              </p>
-              <p className="text-center text-xl font-normal">
-                If not already a user <br />
-                Join us for better exprience
-              </p>
-              <div className="w-full flex justify-center mt-6 mb-2">
-                {/* <button className="bg-slate-200 h-10 w-[35%] rounded-lg font-bold 
-            ">SIGN IN</button> */}
-                {/* {after:content-[''] after:absolute after:z-10 after:w-5 after:h-5 after:bg-slate-950} */}
-                {GlowingButton()}
-              </div>
-            </div>
-          </div>
-
-          <div
-            ref={gsapWel}
-            className="h-full bg-gray-500 w-1/2 absolute right-0"
-          >
-            <div className="h-full flex flex-col gap-4 justify-center items-center">
-              <p className="text-4xl font-medium text-center">
-                {" "}
-                Welcome To <br />
-                Site Name
-              </p>
-              <div>
-                <p className="text-center tracking-widest text-xl font-normal">
-                  If already a user
-                </p>
-                <p className="text-center text-xl font-normal">
-                  {" "}
-                  Login with ID and Password.
-                </p>
-              </div>
-              <div className="w-full flex justify-center mt-6 mb-2">
-                {/* <button className="bg-slate-200 h-10 w-[35%] rounded-lg font-bold 
-            ">SIGN IN</button> */}
-                {/* {after:content-[''] after:absolute after:z-10 after:w-5 after:h-5 after:bg-slate-950} */}
-                {GlowingButton2()}
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
-    </>
+    </div>
+  </div>
+</>
+
   );
 };
 

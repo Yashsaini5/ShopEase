@@ -12,6 +12,8 @@ const Navbar = ({}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [userIcon, setUserIcon] = useState("");
   const [cartItemCount, setCartItemCount] = useState(null)
+  const [menuOpen, setMenuOpen] = useState(false);
+
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -99,102 +101,183 @@ const Navbar = ({}) => {
 };
 
   return (
-    <header className="text-white fixed z-50">
-      <div className="w-[100vw] h-16 bg-black flex items-center justify-between pl-10">
-        <div ref={gsapLogoOpacity} className="font-bold text-3xl opacity-0">
-          <NavLink to={"/"}> ShopEase</NavLink>
+   <header className="text-white fixed z-50 w-full">
+  <div className="w-full h-16 bg-black flex items-center justify-between px-6 md:px-10">
+
+    {/* Logo */}
+    <div ref={gsapLogoOpacity} className="font-bold text-3xl opacity-0">
+      <NavLink to="/">ShopEase</NavLink>
+    </div>
+
+    {/* Hamburger for Mobile */}
+    <div className="md:hidden flex items-center gap-4">
+      <SearchComponent isMobile={true} />
+      <i
+        className={`text-3xl cursor-pointer transition-transform ${
+          menuOpen ? "ri-close-line" : "ri-menu-line"
+        }`}
+        onClick={() => setMenuOpen(!menuOpen)}
+      ></i>
+    </div>
+
+    {/* Desktop Nav */}
+    <div className="hidden md:flex gap-8">
+      {navList.map((list, index) => (
+        <div key={index} ref={list.ref} className="font-medium opacity-0">
+          <NavLink to={list.path}>{list.Name}</NavLink>
         </div>
-        <div className="flex gap-8">
-          {navList.map((list, index) => (
-            <div key={index} ref={list.ref} className="font-medium opacity-0">
-            <NavLink to={list.path}> {list.Name}</NavLink>
-          </div>
-          ))}
+      ))}
+    </div>
 
-        </div>
-        <div className="h-full max-w-48 flex items-center gap-4">
+    {/* Icons */}
+    <div className="hidden md:flex h-full max-w-48 items-center gap-6">
 
-          <div
-            ref={gsapicon1Opacity}
-            className="cursor-pointer flex items-center justify-center h-full w-12 opacity-0"
-          >
-            <SearchComponent />
-          </div>
-
-          <div
-            ref={gsapicon2Opacity}
-            className="flex items-center justify-center h-full w-12 opacity-0"
-          >
-            <NavLink to={"/Wishlist"}>
-              <i className="ri-heart-fill hover:text-2xl"></i>
-            </NavLink>
-          </div>
-          <div
-            ref={gsapicon3Opacity}
-            className="flex items-center justify-center h-full w-12 opacity-0"
-          >
-            <NavLink to={`/Cart`}>
-              <i className="ri-shopping-cart-2-fill hover:text-2xl">
-                {cartItemCount > 0 && (
-                  <span className="absolute right-1 bottom-4 bg-red-600 text-white text-xs rounded-full w-3 h-3 flex items-center justify-center">
-                    {cartItemCount}
-                  </span>
-                )}
-              </i>
-            </NavLink>
-          </div>
-          <div
-            ref={gsapicon4Opacity}
-            className="flex items-center justify-center h-full w-12 opacity-0"
-          >
-            {user ? (
-              <>
-                <div
-                  className="w-10 h-10 absolute flex justify-center items-center cursor-pointer"
-                  onMouseEnter={() => setIsOpen(true)}
-                  onMouseLeave={() => setIsOpen(false)}
-                >
-                  <div className="bg-indigo-400 w-7 h-7 rounded-full flex justify-center items-center cursor-pointer">
-                    {userIcon}
-                  </div>
-                </div>
-                {isOpen && (
-                  <div
-                    className="dropdown absolute -bottom-32 -right-2 -mt-2 w-40 h-36 bg-gray-200 rounded-lg shadow-2xl"
-                    onMouseEnter={() => setIsOpen(true)}
-                    onMouseLeave={() => setIsOpen(false)}
-                  >
-                    <NavLink to={"/MyProfile"}>
-                      <div className="px-3 py-3 border-b border-gray-400 hover:bg-gray-300 cursor-pointer text-black rounded-t-lg flex items-center gap-3">
-                        <div className="w-5 h-5 border-black border rounded-full flex items-center justify-center">
-                          <i className="ri-user-line mt-1"></i>
-                        </div>
-                        My Profile
-                      </div>
-                    </NavLink>
-                    <NavLink to={"/Orders"}>
-                      <div className="px-3 py-3 border-b border-gray-400 hover:bg-gray-300 cursor-pointer text-black flex items-center gap-3">
-                        <i className="ri-box-3-line"></i>Orders
-                      </div>
-                    </NavLink>
-                    <div
-                      className="px-3 py-3 hover:bg-gray-300 cursor-pointer text-black rounded-b-lg flex items-center gap-3"
-                      onClick={handleLogout}
-                    >
-                      <i className="ri-logout-box-r-line"></i>Logout
-                    </div>
-                  </div>
-                )}
-              </>
-            ) : (
-              <NavLink to={"/LogIn"}>
-                <i className="ri-user-fill hover:text-2xl"></i>
-              </NavLink>
-            )}
-          </div>
+      {/* Search Icon */}
+      <div
+        ref={gsapicon1Opacity}
+        className="cursor-pointer flex items-center justify-center h-full w-10 opacity-0 pl-4"
+      >
+        <div className="transition-transform hover:scale-110">
+          <SearchComponent isMobile={false} />
         </div>
       </div>
-    </header>
+
+      {/* Wishlist */}
+      <div
+        ref={gsapicon2Opacity}
+        className="flex items-center justify-center h-full w-10 opacity-0 pl-4"
+      >
+        <NavLink to="/Wishlist" className="transition-transform hover:scale-110">
+          <i className="ri-heart-fill text-xl"></i>
+        </NavLink>
+      </div>
+
+      {/* Cart */}
+      <div
+        ref={gsapicon3Opacity}
+        className="flex items-center justify-center h-full w-10 opacity-0 relative pl-4"
+      >
+        <NavLink
+          to="/Cart"
+          className="transition-transform hover:scale-110 relative"
+        >
+          <i className="ri-shopping-cart-2-fill text-xl"></i>
+          {cartItemCount > 0 && (
+            <span className="absolute -right-2 -top-1 bg-red-600 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
+              {cartItemCount}
+            </span>
+          )}
+        </NavLink>
+      </div>
+
+      {/* User Profile */}
+      <div
+        ref={gsapicon4Opacity}
+        className="flex items-center justify-center h-full w-14 opacity-0 relative pl-4"
+      >
+        {user ? (
+          <>
+            <div
+              className="w-9 h-9 bg-indigo-400 rounded-full flex justify-center items-center transition-transform hover:scale-110 cursor-pointer"
+              onMouseEnter={() => setIsOpen(true)}
+              onMouseLeave={() => setIsOpen(false)}
+            >
+              {userIcon}
+            </div>
+
+            {isOpen && (
+              <div
+                className="dropdown absolute top-12 right-0 w-40 bg-gray-200 rounded-lg shadow-2xl z-50"
+                onMouseEnter={() => setIsOpen(true)}
+                onMouseLeave={() => setIsOpen(false)}
+              >
+                <NavLink to="/MyProfile">
+                  <div className="px-3 py-3 border-b border-gray-400 hover:bg-gray-300 flex items-center gap-3 text-black">
+                    <i className="ri-user-line"></i> My Profile
+                  </div>
+                </NavLink>
+
+                <NavLink to="/Orders">
+                  <div className="px-3 py-3 border-b border-gray-400 hover:bg-gray-300 flex items-center gap-3 text-black">
+                    <i className="ri-box-3-line"></i> Orders
+                  </div>
+                </NavLink>
+
+                <div
+                  className="px-3 py-3 hover:bg-gray-300 flex items-center gap-3 text-black cursor-pointer"
+                  onClick={handleLogout}
+                >
+                  <i className="ri-logout-box-r-line"></i> Logout
+                </div>
+              </div>
+            )}
+          </>
+        ) : (
+          <NavLink
+            to="/LogIn"
+            className="transition-transform hover:scale-110"
+          >
+            <i className="ri-user-fill text-xl"></i>
+          </NavLink>
+        )}
+      </div>
+    </div>
+  </div>
+
+  {/* Mobile Menu */}
+  {menuOpen && (
+    <>
+      {/* FULL PAGE BACKDROP — clicks close menu */}
+      <div
+        className="fixed inset-0 z-999"
+        onClick={() => setMenuOpen(false)}
+      ></div>
+
+      {/* MENU PANEL */}
+      <div className="md:hidden bg-black w-full px-6 pb-5 flex flex-col gap-4 text-lg z-50 relative">
+
+        {navList.map((list, index) => (
+          <NavLink
+            to={list.path}
+            key={index}
+            onClick={() => setMenuOpen(false)}
+            className="border-b border-gray-700 py-2"
+          >
+            {list.Name}
+          </NavLink>
+        ))}
+
+        {/* Icons */}
+        <div className="flex items-center justify-between mt-4">
+
+          <NavLink to="/Wishlist">
+            <i className="ri-heart-fill text-2xl" onClick={() => setMenuOpen(false)}></i>
+          </NavLink>
+
+          <NavLink to="/Cart" className="relative">
+            <i className="ri-shopping-cart-2-fill text-2xl" onClick={() => setMenuOpen(false)}></i>
+            {cartItemCount > 0 && (
+              <span className="absolute -right-1 -top-2 bg-red-600 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
+                {cartItemCount}
+              </span>
+            )}
+          </NavLink>
+
+          {user ? (
+            <NavLink to="/MyProfile">
+              <i className="ri-user-fill text-2xl" onClick={() => setMenuOpen(false)}></i>
+            </NavLink>
+          ) : (
+            <NavLink to="/LogIn">
+              <i className="ri-user-fill text-2xl" onClick={() => setMenuOpen(false)}></i>
+            </NavLink>
+          )}
+        </div>
+      </div>
+    </>
+  )}
+</header>
+
   );
   // }
 };
